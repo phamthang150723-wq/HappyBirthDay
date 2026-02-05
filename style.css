@@ -1,237 +1,333 @@
 body {
-            font-size: 18px;
-            font-family: 'courier'; /*"Lucida Console", Courier, monospace;*/
-            background-color: black;
-            color: white;
-        }
+    font-size: 18px;
+    font-family: 'courier';
+    color: white;
+    margin: 0;
+    min-height: 100vh;
 
-        button {
-            font-size: 18px;
-            font-family: 'courier';
-            color: white;
-            background-color: white; /*#4CAF50;  Green */
-            border: none;
-            color: black;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        #start {
-            background-color: green
-        }
-
-        #startconsoledebug {
-            background-color: yellow
-        }
-
-        #stopconsoledebug {
-            background-color: orange
-        }
-
-        #microphonestatus, #audiostatus, #recording {
-            font-size: 36px;
-            font-family: 'courier';
-            background-color: black;
-            color: white;
-        }
-
-        td, th {
-            border: 1px solid;
-            text-align: left;
-            padding: 10px;
-        }
-
-        body {
-            background-color: #333;
-        }
-
-        .cake {
-            position: absolute;
-            width: 250px;
-            height: 200px;
-            top: 50%;
-            left: 50%;
-            margin-top: -70px;
-            margin-left: -125px;
-        }
-
-        .plate {
-            width: 270px;
-            height: 110px;
-            position: absolute;
-            bottom: -10px;
-            left: -10px;
-            background-color: #ccc;
-            border-radius: 50%;
-            box-shadow: 0 2px 0 #b3b3b3, 0 4px 0 #b3b3b3, 0 5px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        .cake > * {
-            position: absolute;
-        }
-
-        .layer {
-            position: absolute;
-            display: block;
-            width: 250px;
-            height: 100px;
-            border-radius: 50%;
-            background-color: #553c13;
-            box-shadow: 0 2px 0px #6a4b18, 0 4px 0px #33240b, 0 6px 0px #32230b, 0 8px 0px #31230b, 0 10px 0px #30220b, 0 12px 0px #2f220b, 0 14px 0px #2f210a, 0 16px 0px #2e200a, 0 18px 0px #2d200a, 0 20px 0px #2c1f0a, 0 22px 0px #2b1f0a, 0 24px 0px #2a1e09, 0 26px 0px #2a1d09, 0 28px 0px #291d09, 0 30px 0px #281c09;
-        }
-
-        .layer-top {
-            top: 0px;
-        }
-
-        .layer-middle {
-            top: 33px;
-        }
-
-        .layer-bottom {
-            top: 66px;
-        }
-
-        .icing {
-            top: 2px;
-            left: 5px;
-            background-color: #f0e4d0;
-            width: 240px;
-            height: 90px;
-            border-radius: 50%;
-        }
-
-        .icing:before {
-            content: "";
-            position: absolute;
-            top: 4px;
-            right: 5px;
-            bottom: 6px;
-            left: 5px;
-            background-color: #f4ebdc;
-            box-shadow: 0 0 4px #f6efe3, 0 0 4px #f6efe3, 0 0 4px #f6efe3;
-            border-radius: 50%;
-            z-index: 1;
-        }
-
-        .drip {
-            display: block;
-            width: 50px;
-            height: 60px;
-            border-bottom-left-radius: 25px;
-            border-bottom-right-radius: 25px;
-            background-color: #f0e4d0;
-        }
-
-        .drip1 {
-            top: 53px;
-            left: 5px;
-            transform: skewY(15deg);
-            height: 48px;
-            width: 40px;
-        }
-
-        .drip2 {
-            top: 69px;
-            left: 181px;
-            transform: skewY(-15deg);
-        }
-
-        .drip3 {
-            top: 54px;
-            left: 90px;
-            width: 80px;
-            border-bottom-left-radius: 40px;
-            border-bottom-right-radius: 40px;
-        }
-
-        .candle {
-            background-color: #7b020b;
-            width: 16px;
-            height: 50px;
-            border-radius: 8px / 4px;
-            top: -20px;
-            left: 50%;
-            margin-left: -8px;
-            z-index: 10;
-        }
-
-        .candle:before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 16px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: #ad030f;
-        }
-
-        .flame {
-            position: absolute;
-            background-color: orange;
-            width: 15px;
-            height: 35px;
-            border-radius: 10px 10px 10px 10px / 25px 25px 10px 10px;
-            top: -34px;
-            left: 50%;
-            margin-left: -7.5px;
-            z-index: 10;
-            box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5), 0 0 80px rgba(255, 165, 0, 0.5);
-            transform-origin: 50% 90%;
-            animation: flicker 1s ease-in-out alternate infinite;
-        }
-        .flame.off {
-            opacity: 0;
-            animation: none;
-            box-shadow: none;
-        }
+    /* 🌈 GIỮ NỀN ĐẸP LUÔN */
+    background: linear-gradient(135deg, #f9a8d4, #c084fc, #818cf8);
+}
 
 
-        @keyframes flicker {
-            0% {
-                transform: skewX(5deg);
-                box-shadow: 0 0 10px rgba(255, 165, 0, 0.2), 0 0 20px rgba(255, 165, 0, 0.2), 0 0 60px rgba(255, 165, 0, 0.2), 0 0 80px rgba(255, 165, 0, 0.2);
-            }
-            25% {
-                transform: skewX(-5deg);
-                box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5), 0 0 80px rgba(255, 165, 0, 0.5);
-            }
-            50% {
-                transform: skewX(10deg);
-                box-shadow: 0 0 10px rgba(255, 165, 0, 0.3), 0 0 20px rgba(255, 165, 0, 0.3), 0 0 60px rgba(255, 165, 0, 0.3), 0 0 80px rgba(255, 165, 0, 0.3);
-            }
-            75% {
-                transform: skewX(-10deg);
-                box-shadow: 0 0 10px rgba(255, 165, 0, 0.4), 0 0 20px rgba(255, 165, 0, 0.4), 0 0 60px rgba(255, 165, 0, 0.4), 0 0 80px rgba(255, 165, 0, 0.4);
-            }
-            100% {
-                transform: skewX(5deg);
-                box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5), 0 0 80px rgba(255, 165, 0, 0.5);
-            }
-        }
+button {
+    font-size: 18px;
+    font-family: 'courier';
+    color: white;
+    background-color: white;
+    /*#4CAF50;  Green */
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
 
-        #cake-holder .cake-off {
-            opacity: 0;
-            transition: 1s ease-in all;
-        }
+#start {
+    background-color: green
+}
 
-        #cake-holder.done .cake-off {
-            opacity: 1;
-            transition: 1s ease-in all;
-        }
+#startconsoledebug {
+    background-color: yellow
+}
 
-        #cake-holder .cake .flame {
-            opacity: 1;
-            transition: 0.3s ease-in all;
-        }
+#stopconsoledebug {
+    background-color: orange
+}
 
-        #cake-holder.done .flame {
-            opacity: 0;
-        }
+#microphonestatus,
+#audiostatus,
+#recording {
+    font-size: 36px;
+    font-family: 'courier';
+    background-color: black;
+    color: white;
+}
 
-        .text-center {
-            text-align: center;
-        }
+td,
+th {
+    border: 1px solid;
+    text-align: left;
+    padding: 10px;
+}
+
+
+
+.cake {
+    position: absolute;
+    width: 250px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    margin-top: -70px;
+    margin-left: -125px;
+}
+
+.plate {
+    width: 270px;
+    height: 110px;
+    position: absolute;
+    bottom: -10px;
+    left: -10px;
+    background-color: #ccc;
+    border-radius: 50%;
+    box-shadow: 0 2px 0 #b3b3b3, 0 4px 0 #b3b3b3, 0 5px 40px rgba(0, 0, 0, 0.5);
+}
+
+.cake>* {
+    position: absolute;
+}
+
+.layer {
+    position: absolute;
+    display: block;
+    width: 250px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #553c13;
+    box-shadow: 0 2px 0px #6a4b18, 0 4px 0px #33240b, 0 6px 0px #32230b, 0 8px 0px #31230b, 0 10px 0px #30220b, 0 12px 0px #2f220b, 0 14px 0px #2f210a, 0 16px 0px #2e200a, 0 18px 0px #2d200a, 0 20px 0px #2c1f0a, 0 22px 0px #2b1f0a, 0 24px 0px #2a1e09, 0 26px 0px #2a1d09, 0 28px 0px #291d09, 0 30px 0px #281c09;
+}
+
+.layer-top {
+    top: 0px;
+}
+
+.layer-middle {
+    top: 33px;
+}
+
+.layer-bottom {
+    top: 66px;
+}
+
+.icing {
+    top: 2px;
+    left: 5px;
+    background-color: #f0e4d0;
+    width: 240px;
+    height: 90px;
+    border-radius: 50%;
+}
+
+.icing:before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    bottom: 6px;
+    left: 5px;
+    background-color: #f4ebdc;
+    box-shadow: 0 0 4px #f6efe3, 0 0 4px #f6efe3, 0 0 4px #f6efe3;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.drip {
+    display: block;
+    width: 50px;
+    height: 60px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    background-color: #f0e4d0;
+}
+
+.drip1 {
+    top: 53px;
+    left: 5px;
+    transform: skewY(15deg);
+    height: 48px;
+    width: 40px;
+}
+
+.drip2 {
+    top: 69px;
+    left: 181px;
+    transform: skewY(-15deg);
+}
+
+.drip3 {
+    top: 54px;
+    left: 90px;
+    width: 80px;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+}
+
+.candle {
+    background-color: #7b020b;
+    width: 16px;
+    height: 50px;
+    border-radius: 8px / 4px;
+    top: -20px;
+    left: 50%;
+    margin-left: -8px;
+    z-index: 10;
+}
+
+.candle:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 16px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #ad030f;
+}
+
+.flame {
+    position: absolute;
+    background-color: orange;
+    width: 15px;
+    height: 35px;
+    border-radius: 10px 10px 10px 10px / 25px 25px 10px 10px;
+    top: -34px;
+    left: 50%;
+    margin-left: -7.5px;
+    z-index: 10;
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5), 0 0 80px rgba(255, 165, 0, 0.5);
+    transform-origin: 50% 90%;
+    animation: flicker 1s ease-in-out alternate infinite;
+}
+
+.flame.off {
+    opacity: 0;
+    animation: none;
+    box-shadow: none;
+}
+
+/* ================= LOGIN OVERLAY ================= */
+#login-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45); /* chỉ làm mờ */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+#login-overlay.hide {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+}
+
+.login-card {
+    color: #333;            /* chữ chính đậm hơn */
+}
+
+
+.login-card {
+    background: rgba(255, 255, 255, .92);
+    padding: 30px;
+    border-radius: 24px;
+    width: 90%;
+    max-width: 380px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .3);
+}
+
+.big-heart {
+    font-size: 60px;
+    color: #ec4899;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+#login-password {
+    width: 90%;
+    padding: 14px;
+    margin-top: 14px;
+    border-radius: 14px;
+    border: 2px solid #f9a8d4;
+    font-size: 16px;
+}
+
+#login-error {
+    display: none;
+    color: #ef4444;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.login-card button {
+    margin-top: 16px;
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(to right, #ec4899, #a855f7);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* ================= HIDE CAKE INIT ================= */
+#cake-content {
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+@keyframes flicker {
+    0% {
+        transform: skewX(5deg);
+        box-shadow: 0 0 10px rgba(255, 165, 0, 0.2), 0 0 20px rgba(255, 165, 0, 0.2), 0 0 60px rgba(255, 165, 0, 0.2), 0 0 80px rgba(255, 165, 0, 0.2);
+    }
+
+    25% {
+        transform: skewX(-5deg);
+        box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5), 0 0 80px rgba(255, 165, 0, 0.5);
+    }
+
+    50% {
+        transform: skewX(10deg);
+        box-shadow: 0 0 10px rgba(255, 165, 0, 0.3), 0 0 20px rgba(255, 165, 0, 0.3), 0 0 60px rgba(255, 165, 0, 0.3), 0 0 80px rgba(255, 165, 0, 0.3);
+    }
+
+    75% {
+        transform: skewX(-10deg);
+        box-shadow: 0 0 10px rgba(255, 165, 0, 0.4), 0 0 20px rgba(255, 165, 0, 0.4), 0 0 60px rgba(255, 165, 0, 0.4), 0 0 80px rgba(255, 165, 0, 0.4);
+    }
+
+    100% {
+        transform: skewX(5deg);
+        box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5), 0 0 80px rgba(255, 165, 0, 0.5);
+    }
+}
+
+#cake-holder .cake-off {
+    opacity: 0;
+    transition: 1s ease-in all;
+}
+
+#cake-holder.done .cake-off {
+    opacity: 1;
+    transition: 1s ease-in all;
+}
+
+#cake-holder .cake .flame {
+    opacity: 1;
+    transition: 0.3s ease-in all;
+}
+
+#cake-holder.done .flame {
+    opacity: 0;
+}
+
+.text-center {
+    text-align: center;
+}

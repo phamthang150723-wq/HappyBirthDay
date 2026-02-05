@@ -2,52 +2,74 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<title>Birthday Cake 🎂</title>
-	<link rel="shortcut icon" href="#">
+    <meta charset="UTF-8">
+    <title>Birthday Cake 🎂</title>
+    <link rel="shortcut icon" href="#">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="text-center">
-<h1>Birthday Cake 🎂</h1>
-<br>
-<button id="start">START (required on Chrome)</button>
-<button style="display: none" id="startconsoledebug">enable console logs</button>
-<button style="display: none" id="stopconsoledebug">disable console logs</button>
-<br>
-<br>
-<div id="cake-holder" style="opacity: 0">
-	<div class="cake">
-		<div class="plate"></div>
-		<div class="layer layer-bottom"></div>
-		<div class="layer layer-middle"></div>
-		<div class="layer layer-top"></div>
-		<div class="icing"></div>
-		<div class="drip drip1"></div>
-		<div class="drip drip2"></div>
-		<div class="drip drip3"></div>
-		<div class="candle">
-			<div class="flame"></div>
-		</div>
-	</div>
-	<div class="text-center">
-		<h5 class="cake-off">❣ Happy Birthday Hà Ly ❣ </h5>
-		<p class="cake-off">❤ Ước trước khi thổi nến nhé!!! ❤ </p>
-	</div>
+    <!-- LOGIN OVERLAY -->
+    <div id="login-overlay">
+        <div class="login-card">
+            <div class="big-heart">🎂</div>
+            <h2>💝 Dành cho Hà Ly 💝</h2>
+            <p>Nhập ngày sinh của HL để mở quà nhé!</p>
 
-</div>
-<!--
+            <input id="login-password" type="text" inputmode="numeric" maxlength="10" placeholder="dd/mm/yyyy">
+
+            <div id="login-error">Sai mật khẩu rồi! Thử lại nhé 💕</div>
+
+            <button onclick="checkPassword()">Mở quà 🎁</button>
+
+            <small>Gợi ý: 12/02/2003 💕</small>
+        </div>
+    </div>
+
+    <!-- ================== CAKE CONTENT ================== -->
+    <div id="cake-content">
+        <h1>Birthday Cake 🎂</h1>
+        <br>
+        <button id="start">START (required on Chrome)</button>
+        <button style="display: none" id="startconsoledebug">enable console logs</button>
+        <button style="display: none" id="stopconsoledebug">disable console logs</button>
+        <br>
+        <br>
+        <div id="cake-holder" style="opacity: 0">
+            <div class="cake">
+                <div class="plate"></div>
+                <div class="layer layer-bottom"></div>
+                <div class="layer layer-middle"></div>
+                <div class="layer layer-top"></div>
+                <div class="icing"></div>
+                <div class="drip drip1"></div>
+                <div class="drip drip2"></div>
+                <div class="drip drip3"></div>
+                <div class="candle">
+                    <div class="flame"></div>
+                </div>
+            </div>
+            <div class="text-center">
+                <h5 class="cake-off">❣ Happy Birthday Hà Ly ❣ </h5>
+                <p class="cake-off">❤ Ước trước khi thổi nến nhé!!! ❤ </p>
+            </div>
+
+        </div>
+    </div>
+
+    <!--
 	<canvas id="meter" width="500" height="50"></canvas>
 -->
 
-<script src="cake.js"></script>
-<script src="volume-meter.js"></script>
-<script src="audioDetectionConfig.js"></script>
-<script src="audioDetection.js"></script>
-<script src="audioStream.js"></script>
+    <script src="cake.js"></script>
+    <script src="volume-meter.js"></script>
+    <script src="audioDetectionConfig.js"></script>
+    <script src="audioDetection.js"></script>
+    <script src="audioStream.js"></script>
 
-<script src="demoAudioRecorder.js"></script>
-<script src="demoAudioDetectionListeners.js"></script>
-<script src="demo.js"></script>
+    <script src="demoAudioRecorder.js"></script>
+    <script src="demoAudioDetectionListeners.js"></script>
+    <script src="demo.js"></script>
 </body>
+
 </html>

@@ -74,6 +74,60 @@ window.onload = function () {
     });
 };
 
+const input = document.getElementById('login-password');
+
+input.addEventListener('keydown', (e) => {
+  // Nếu đang xoá ngay sau dấu /
+  if (e.key === 'Backspace') {
+    const pos = input.selectionStart;
+    if (pos === 3 || pos === 6) {
+      e.preventDefault();
+      input.value =
+        input.value.slice(0, pos - 1) + input.value.slice(pos);
+      input.setSelectionRange(pos - 1, pos - 1);
+    }
+  }
+});
+
+input.addEventListener('input', () => {
+  let value = input.value.replace(/\D/g, '').slice(0, 8);
+
+  let result = '';
+  if (value.length >= 2) {
+    result = value.slice(0, 2);
+    if (value.length >= 3) result += '/' + value.slice(2, 4);
+    if (value.length >= 5) result += '/' + value.slice(4);
+  } else {
+    result = value;
+  }
+
+  input.value = result;
+});
+
+
+const CORRECT_PASSWORD = '12022003'; // ddmmyyyy
+
+function checkPassword() {
+  const input = document.getElementById('login-password');
+  const error = document.getElementById('login-error');
+  const overlay = document.getElementById('login-overlay');
+  const cake = document.getElementById('cake-content');
+
+  const clean = input.value.replace(/\D/g, '');
+
+  if (clean === CORRECT_PASSWORD) {
+    error.style.display = 'none';
+    overlay.classList.add('hide');
+    cake.style.opacity = 1;
+    cake.style.pointerEvents = 'auto';
+  } else {
+    error.style.display = 'block';
+    overlay.classList.add('shake');
+    setTimeout(() => overlay.classList.remove('shake'), 400);
+  }
+}
+
+
 // Fallback
 function didntGetStream() {
     console.warn('Stream generation failed — fallback mode');
