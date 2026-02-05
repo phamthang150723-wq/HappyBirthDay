@@ -334,28 +334,62 @@ th {
 @media (max-width: 768px) {
 
     body {
-        font-size: 22px;
+        font-size: 20px;
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
+    #cake-content {
+        opacity: 1;
+        pointer-events: auto;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
     h1 {
-        font-size: 36px;
+        font-size: 32px;
+        margin-top: 24px;
+        margin-bottom: 16px;
     }
 
-    h2 {
-        font-size: 28px;
+    #start {
+        font-size: 22px;
+        padding: 16px 28px;
+        border-radius: 14px;
+        margin-bottom: 20px;
+    }
+    #cake-holder {
+        opacity: 1 !important;
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
-    h5 {
-        font-size: 22px;
+    .cake {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin: 0;
+        transform: scale(1.6);
     }
-    button {
-        font-size: 22px;
-        padding: 18px 36px;
-        border-radius: 16px;
+    .cake-off {
+        font-size: 18px;
+        margin-top: 20px;
+        line-height: 1.6;
     }
     .login-card {
-        padding: 32px;
-        border-radius: 28px;
+        width: 92%;
+        padding: 28px;
+        border-radius: 24px;
+        text-align: center;
+    }
+
+    .big-heart {
+        font-size: 72px;
     }
 
     #login-password {
@@ -363,19 +397,9 @@ th {
         padding: 16px;
     }
 
-    .big-heart {
-        font-size: 80px;
-    }
-    .cake {
-        transform: scale(1.3);
-    }
-
-    #cake-holder {
-        transform: translateY(-20px);
-    }
-    #microphonestatus,
-    #audiostatus,
-    #recording {
-        font-size: 28px;
+    .login-card button {
+        font-size: 20px;
+        padding: 16px;
+        border-radius: 14px;
     }
 }
