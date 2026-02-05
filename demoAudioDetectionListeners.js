@@ -44,9 +44,12 @@ document.addEventListener('signal', event => {
   const line = hystogramLine(volume)
   console.log('dbV',dBV)
   if (dBV >= -17){
-    console.log('Happy Birth Day')
-    showCake()
+    console.log('🎤 Blow detected')
+
+    showCake();              // hiện bánh (nếu cần)
+    turnOffCandle('audio');  // 🔥 TẮT NẾN + 🎉 ĐỔI HIỆU ỨNG
   }
+
   if (debuglog)
     console.log(`signal  ${timestamp} ${items} ${volume} ${dBV} ${line}`)
 

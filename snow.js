@@ -42,7 +42,7 @@ window.addEventListener("load", () => {
         particles = [];
         const icons = ["🎉", "🎂", "❤️", "✨", "🎈"];
 
-        for (let i = 0; i < 80; i++) {
+        for (let i = 0; i < 50; i++) {
             particles.push({
                 x: Math.random() * canvas.width,
                 y: canvas.height + Math.random() * 200,
@@ -106,5 +106,10 @@ window.addEventListener("load", () => {
         EFFECT = "celebrate";
         createCelebrate();
     };
+    window.switchToSnowEffect = function () {
+        EFFECT = "snow";
+        createSnow();
+    };
+
 
 });

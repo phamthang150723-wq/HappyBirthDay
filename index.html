@@ -15,25 +15,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const startBtn = document.getElementById("start");
     const cakeHolder = document.getElementById("cake-holder");
     const cakeContent = document.getElementById("cake-content");
+    
 
-    // trạng thái ban đầu
     startBtn.textContent = "bấm vào đây để phù phép ✨";
 
     startBtn.addEventListener("click", () => {
-        // đổi text nút
-        startBtn.textContent = "Úm ba la bánh sinh nhật hiện ra... 🎂";
+        const flame = document.querySelector(".flame");
 
-        // hiện nội dung bánh
+        // Nếu bánh chưa hiện → hiện bánh
         cakeContent.style.opacity = "1";
         cakeContent.style.pointerEvents = "auto";
 
         cakeHolder.style.opacity = "1";
 
-        // nếu code cũ của bạn có animation / JS khác
-        // thì KHÔNG cần đụng tới
+        // 🔥 Nếu nến đang tắt → bật lại
+        if (flame && flame.classList.contains("off")) {
+            relightCandle();
+            startBtn.textContent = "Úm ba la thổi nến tiếp nè ✨";
+        } else {
+            startBtn.textContent = "Úm ba la bánh sinh nhật hiện ra... 🎂";
+        }
     });
 });
 </script>
+
 
 <body class="text-center">
     <!-- LOGIN OVERLAY -->
