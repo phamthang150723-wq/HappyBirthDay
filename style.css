@@ -340,10 +340,16 @@ th {
         flex-direction: column;
         align-items: center;
     }
+    .cake {
+        transform: scale(1.25);
+        position: relative;
+        top: 0;
+        left: 0;
+        margin: 0 auto;
+    }
 
     #cake-content {
-        opacity: 1;
-        pointer-events: auto;
+        
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -362,7 +368,7 @@ th {
         margin-bottom: 20px;
     }
     #cake-holder {
-        opacity: 1 !important;
+        
         margin-top: 10px;
         display: flex;
         flex-direction: column;
@@ -403,3 +409,24 @@ th {
         border-radius: 14px;
     }
 }
+.in-messenger body {
+    font-size: 22px;
+}
+
+.in-messenger .cake {
+    transform: scale(1.45);
+}
+
+.in-messenger h1 {
+    font-size: 36px;
+}
+
+.in-messenger button {
+    font-size: 22px;
+    padding: 18px 36px;
+}
+
+.in-messenger .login-card {
+    transform: scale(1.1);
+}
+

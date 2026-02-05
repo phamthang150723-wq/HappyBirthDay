@@ -6,7 +6,7 @@
     <title>Birthday Cake 🎂</title>
     <link rel="shortcut icon" href="#">
     <link rel="stylesheet" href="style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 </head>
 
@@ -72,6 +72,15 @@
     <script src="demoAudioRecorder.js"></script>
     <script src="demoAudioDetectionListeners.js"></script>
     <script src="demo.js"></script>
+    <script src="snow.js"></script>
+    <script>
+        const ua = navigator.userAgent || navigator.vendor || window.opera;
+        const isMessenger = /FBAN|FBAV|Messenger/i.test(ua);
+
+        if (isMessenger) {
+            document.documentElement.classList.add("in-messenger");
+        }
+        </script>
 </body>
 
 </html>
