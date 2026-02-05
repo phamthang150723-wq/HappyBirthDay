@@ -331,3 +331,51 @@ th {
 .text-center {
     text-align: center;
 }
+@media (max-width: 768px) {
+
+    body {
+        font-size: 22px;
+    }
+
+    h1 {
+        font-size: 36px;
+    }
+
+    h2 {
+        font-size: 28px;
+    }
+
+    h5 {
+        font-size: 22px;
+    }
+    button {
+        font-size: 22px;
+        padding: 18px 36px;
+        border-radius: 16px;
+    }
+    .login-card {
+        padding: 32px;
+        border-radius: 28px;
+    }
+
+    #login-password {
+        font-size: 20px;
+        padding: 16px;
+    }
+
+    .big-heart {
+        font-size: 80px;
+    }
+    .cake {
+        transform: scale(1.3);
+    }
+
+    #cake-holder {
+        transform: translateY(-20px);
+    }
+    #microphonestatus,
+    #audiostatus,
+    #recording {
+        font-size: 28px;
+    }
+}
