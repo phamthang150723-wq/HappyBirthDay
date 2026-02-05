@@ -25,8 +25,23 @@ button {
 }
 
 #start {
-    background-color: green
+    font-size: 20px;
+    font-family: 'courier', monospace;
+    padding: 16px 30px;
+    border-radius: 999px; /* bo tròn mềm */
+    margin-bottom: 20px;
+
+    background: linear-gradient(135deg, #ec4899, #a855f7);
+    color: white;
+
+    box-shadow: 0 8px 18px rgba(236,72,153,.4);
+
+    transition: 
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        filter 0.15s ease;
 }
+
 
 #startconsoledebug {
     background-color: yellow
@@ -341,7 +356,7 @@ th {
         align-items: center;
     }
     .cake {
-        transform: scale(1.2);
+        transform: scale(1.1);
         position: relative;
         top: 0;
         left: 0;
@@ -414,7 +429,7 @@ th {
 }
 
 .in-messenger .cake {
-    transform: scale(1.25);
+    transform: scale(1.05);
 }
 
 .in-messenger h1 {

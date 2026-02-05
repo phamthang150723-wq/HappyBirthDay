@@ -160,6 +160,10 @@ function extinguishCandle() {
     flame.style.opacity = 0;
 
     console.log('🔥 Candle extinguished by click/touch');
+    // 🎉 ĐỔI HIỆU ỨNG KHI NẾN TẮT
+    if (window.switchToCelebrateEffect) {
+        window.switchToCelebrateEffect();
+    }
 }
 
 // Optional volume meter draw loop
