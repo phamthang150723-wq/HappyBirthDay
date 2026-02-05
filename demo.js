@@ -4,109 +4,119 @@ The MIT License (MIT)
 
 Copyright (c) 2014 Chris Wilson
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
 */
+
 var audioContext = null;
 var meter = null;
 var canvasContext = null;
-var WIDTH=500;
-var HEIGHT=50;
+var WIDTH = 500;
+var HEIGHT = 50;
 var rafID = null;
 
-var debuglog = false
+var debuglog = false;
 
-window.onload = function() {
+window.onload = function () {
 
-    // grab our canvas
-	  //canvasContext = document.getElementById( 'meter' ).getContext('2d');
-
-    // monkeypatch Web Audio
+    // Monkeypatch Web Audio
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
-    // grab an audio context
-    audioContext = new AudioContext();
+    // START button — REQUIRED for desktop Chrome
+    document.querySelector('#start').addEventListener('click', async function () {
 
-    // https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#webaudio
-    // https://sites.google.com/a/chromium.org/dev/audio-video/autoplay
-    // https://stackoverflow.com/questions/50218162/web-autoplay-policy-change-resuming-context-doesnt-unmute-audio
+        try {
+            // Create AudioContext INSIDE user interaction
+            audioContext = new AudioContext();
 
-    // One-liner to resume playback when user interacted with the page.
-    document.querySelector('#start').addEventListener('click', function() {
+            if (audioContext.state === 'suspended') {
+                await audioContext.resume();
+            }
 
-      audioContext.resume().then( () => {
-        console.log('User interacted with the page. Playback resumed successfully')
-      })
+            if (debuglog) {
+                console.log('AudioContext state:', audioContext.state);
+            }
 
-    })
+            // Request microphone AFTER user click
+            const stream = await navigator.mediaDevices.getUserMedia({
+                audio: {
+                    echoCancellation: false,
+                    noiseSuppression: false,
+                    autoGainControl: false
+                }
+            });
 
-    document.querySelector('#startconsoledebug').addEventListener('click', function() {
-      debuglog = true
-    })
+            // ⬅️ DÙNG audioStream GỐC (audioStream.js)
+            audioStream(stream);
 
-    // debug log flag
-    document.querySelector('#stopconsoledebug').addEventListener( 'click', () =>  {
-      debuglog = false
-    })
+            // Show cake
+            document.getElementById('cake-holder').style.opacity = 1;
 
-    // Attempt to get audio input
-    try {
-        // ask for an audio input
-        navigator.mediaDevices.getUserMedia(
-        {
-            'audio': {
-                'mandatory': {
-                    'googEchoCancellation': 'false',
-                    'googAutoGainControl': 'false',
-                    'googNoiseSuppression': 'false',
-                    'googHighpassFilter': 'false'
-                },
-                'optional': []
-            },
-        }).then(audioStream)
-        .catch(didntGetStream);
-    } catch (e) {
-        alert('getUserMedia threw exception :' + e);
-    }
+            // ⬅️ CHỈ THÊM DÒNG NÀY
+            enableClickToBlow();
 
-}
+        } catch (err) {
+            console.error('Audio init failed:', err);
 
+            alert('Không truy cập được microphone. Bạn có thể click vào nến để tắt.');
 
+            document.getElementById('cake-holder').style.opacity = 1;
+            enableClickToBlow();
+        }
+    });
+
+    // Debug controls
+    document.querySelector('#startconsoledebug').addEventListener('click', function () {
+        debuglog = true;
+    });
+
+    document.querySelector('#stopconsoledebug').addEventListener('click', function () {
+        debuglog = false;
+    });
+};
+
+// Fallback
 function didntGetStream() {
-    alert('Stream generation failed.');
+    console.warn('Stream generation failed — fallback mode');
+    document.getElementById('cake-holder').style.opacity = 1;
+    enableClickToBlow();
 }
 
+/* =========================
+   CLICK / TOUCH TO BLOW
+========================= */
+function enableClickToBlow() {
+    const candle = document.querySelector('.candle');
+    if (!candle) return;
 
-function drawLoop( time ) {
-    // clear the background
-    canvasContext.clearRect(0,0,WIDTH,HEIGHT);
+    candle.addEventListener('click', extinguishCandle);
 
-    // check if we're currently clipping
-    if (meter.checkClipping())
-        canvasContext.fillStyle = 'red';
-    else
-        canvasContext.fillStyle = 'green';
+    candle.addEventListener('touchstart', function (e) {
+        e.preventDefault();
+        extinguishCandle();
+    }, { passive: false });
+}
 
-    // draw a bar based on the current volume
-    canvasContext.fillRect(0, 0, meter.volume*WIDTH*1.4, HEIGHT);
+function extinguishCandle() {
+    const flame = document.querySelector('.flame');
+    if (!flame) return;
 
-    // set up the next visual callback
-    rafID = window.requestAnimationFrame( drawLoop );
+    if (flame.classList.contains('off')) return;
+
+    flame.classList.add('off');
+    flame.style.opacity = 0;
+
+    console.log('🔥 Candle extinguished by click/touch');
+}
+
+// Optional volume meter draw loop
+function drawLoop(time) {
+    if (!canvasContext || !meter) return;
+
+    canvasContext.clearRect(0, 0, WIDTH, HEIGHT);
+    canvasContext.fillStyle = meter.checkClipping() ? 'red' : 'green';
+    canvasContext.fillRect(0, 0, meter.volume * WIDTH * 1.4, HEIGHT);
+
+    rafID = window.requestAnimationFrame(drawLoop);
 }
 
 
