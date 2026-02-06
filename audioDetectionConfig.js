@@ -109,7 +109,7 @@ the event 'abortrecording' is generated.
                               |
                        MIN_SIGNAL_DURATION  
 */
-const MIN_SIGNAL_DURATION = 400
+const MIN_SIGNAL_DURATION = 200
 
 
 /*
@@ -125,7 +125,7 @@ silence (background noise)
 mute (microphone off)
 
 */
-const VOLUME_SIGNAL = 0.02
+const VOLUME_SIGNAL = 0.012
 const VOLUME_SILENCE = 0.001
 const VOLUME_MUTE = 0.0001
 
@@ -139,7 +139,7 @@ If a signal block chain sample doesn't exceed that threshold value,
 the event 'abortrecording' is generated.
 
 */
-const MIN_AVERAGE_SIGNAL_VOLUME = 0.04
+const MIN_AVERAGE_SIGNAL_VOLUME = 0.018
 
 
 const DEFAULT_PARAMETERS_CONFIGURATION = {

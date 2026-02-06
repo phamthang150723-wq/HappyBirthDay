@@ -527,3 +527,61 @@ th {
         transform: translateX(-50%) scale(0.95);
     }
 }
+/* ================== CONFIRM DIALOG ================== */
+.confirm-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.confirm-box {
+    background: #111;
+    border: 2px solid #ff6fae;
+    border-radius: 16px;
+    padding: 24px 28px;
+    max-width: 90%;
+    width: 360px;
+    text-align: center;
+    color: #fff;
+    animation: popIn 0.35s ease-out;
+}
+
+.confirm-box h2 {
+    font-size: 22px;
+    margin-bottom: 12px;
+}
+
+.confirm-box p {
+    font-size: 16px;
+    opacity: 0.9;
+    margin-bottom: 20px;
+}
+
+.confirm-btn {
+    background: linear-gradient(135deg, #ff6fae, #ff3f7f);
+    border: none;
+    color: white;
+    font-size: 16px;
+    padding: 12px 20px;
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.confirm-btn:active {
+    transform: scale(0.96);
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0.85);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

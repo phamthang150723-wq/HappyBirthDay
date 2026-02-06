@@ -47,6 +47,26 @@ function showMicWarning() {
     }, 10000);
 }
 
+function showConfirmDialog(onConfirm) {
+    const overlay = document.createElement("div");
+    overlay.className = "confirm-overlay";
+
+    overlay.innerHTML = `
+        <div class="confirm-box">
+            <h2>🎂 Sẵn sàng chưa?</h2>
+            <p>Hãy chuẩn bị ước một điều thật đẹp<br>
+               rồi bấm xác nhận để thổi nến nhé ❤️</p>
+            <button class="confirm-btn">Mình sẵn sàng rồi!</button>
+        </div>
+    `;
+
+    document.body.appendChild(overlay);
+
+    overlay.querySelector(".confirm-btn").addEventListener("click", () => {
+        overlay.remove();
+        onConfirm && onConfirm();
+    });
+}
 
 
 /* =========================
@@ -59,59 +79,55 @@ window.onload = function () {
 
     const startBtn = document.querySelector('#start');
 
-    startBtn.addEventListener('click', async function () {
+    startBtn.addEventListener('click', function () {
 
         const flame = document.querySelector('.flame');
 
-        /* =========================
-           RELIGHT MODE
-        ========================= */
+        /* 🔥 RELIGHT */
         if (flame && flame.classList.contains('off')) {
             relightCandle();
             startBtn.textContent = 'Úm ba la thổi nến tiếp nè ✨';
             return;
         }
 
-        /* =========================
-           INIT AUDIO (ONLY ONCE)
-        ========================= */
+        /* ⛔ ĐÃ INIT AUDIO */
         if (audioInitialized) return;
-        audioInitialized = true;
 
-        try {
-            audioContext = new AudioContext();
+        /* ✅ HIỆN DIALOG XÁC NHẬN */
+        showConfirmDialog(async () => {
 
-            if (audioContext.state === 'suspended') {
-                await audioContext.resume();
-            }
+            audioInitialized = true;
 
-            if (debuglog) {
-                console.log('AudioContext state:', audioContext.state);
-            }
-
-            const stream = await navigator.mediaDevices.getUserMedia({
-                audio: {
-                    echoCancellation: false,
-                    noiseSuppression: false,
-                    autoGainControl: false
+            try {
+                audioContext = new AudioContext();
+                if (audioContext.state === 'suspended') {
+                    await audioContext.resume();
                 }
-            });
-            showMicWarning();
 
-            audioStream(stream);
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    audio: {
+                        echoCancellation: false,
+                        noiseSuppression: false,
+                        autoGainControl: false
+                    }
+                });
 
-            document.getElementById('cake-holder').style.opacity = 1;
-            enableClickToBlow();
+                audioStream(stream);
 
-        } catch (err) {
-            console.error('Audio init failed:', err);
+                document.getElementById('cake-holder').style.opacity = 1;
+                enableClickToBlow();
 
-            alert('Không truy cập được microphone. Bạn có thể click vào nến để tắt.');
+            } catch (err) {
+                console.error(err);
 
-            document.getElementById('cake-holder').style.opacity = 1;
-            enableClickToBlow();
-        }
+                alert('Không truy cập được microphone. Bạn có thể click vào nến để tắt.');
+
+                document.getElementById('cake-holder').style.opacity = 1;
+                enableClickToBlow();
+            }
+        });
     });
+
 
     /* Debug buttons */
     document.querySelector('#startconsoledebug').addEventListener('click', () => {
