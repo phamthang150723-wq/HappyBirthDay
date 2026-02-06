@@ -3,8 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Birthday Cake 🎂</title>
-    <link rel="shortcut icon" href="#">
+    <title>Birthday Cake 👑</title>
+    <link rel="icon" type="image/svg+xml"
+      href="data:image/svg+xml,
+      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+        <text y='0.9em' font-size='90'>🎂</text>
+      </svg>">
+
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -41,6 +46,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 <body class="text-center">
+    <!-- MIC WARNING DIALOG -->
+    <div id="mic-warning" class="mic-warning hidden">
+        🔔 Nến rất dễ tắt bởi âm thanh lớn,<br>
+        hãy cẩn thận nhé!
+    </div>
+
     <!-- LOGIN OVERLAY -->
     <div id="login-overlay">
         <div class="login-card">
@@ -89,9 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
     </div>
 
-    <!--
-	<canvas id="meter" width="500" height="50"></canvas>
--->
+
 
     <script src="cake.js"></script>
     <script src="volume-meter.js"></script>

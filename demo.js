@@ -16,6 +16,24 @@ var rafID = null;
 var debuglog = false;
 var audioInitialized = false;
 
+function showMicWarning() {
+    const warning = document.getElementById('mic-warning');
+    if (!warning) return;
+
+    warning.classList.remove('hidden');
+
+    // reset animation nếu gọi lại
+    warning.style.animation = 'none';
+    warning.offsetHeight; // force reflow
+    warning.style.animation = '';
+
+    // tự ẩn sau 4s
+    setTimeout(() => {
+        warning.classList.add('hidden');
+    }, 4000);
+}
+
+
 /* =========================
    INIT
 ========================= */
@@ -63,6 +81,7 @@ window.onload = function () {
                     autoGainControl: false
                 }
             });
+            showMicWarning();
 
             audioStream(stream);
 
@@ -159,15 +178,26 @@ function didntGetStream() {
    CLICK / TOUCH TO BLOW
 ========================= */
 function enableClickToBlow() {
-    const candle = document.querySelector('.candle');
-    if (!candle) return;
+    const cake = document.querySelector('.cake');
+    if (!cake) return;
 
-    candle.addEventListener('click', () => turnOffCandle('click'));
-    candle.addEventListener('touchstart', (e) => {
+    const handleBlow = (source) => {
+        turnOffCandle(source);
+    };
+
+    // Click chuột
+    cake.addEventListener('click', (e) => {
+        // Chỉ xử lý khi click trong vùng bánh
+        handleBlow('click-cake');
+    });
+
+    // Touch (mobile)
+    cake.addEventListener('touchstart', (e) => {
         e.preventDefault();
-        turnOffCandle('touch');
+        handleBlow('touch-cake');
     }, { passive: false });
 }
+
 
 /* =========================
    CANDLE CONTROL
