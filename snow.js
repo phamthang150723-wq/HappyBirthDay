@@ -18,6 +18,10 @@ window.addEventListener("load", () => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
     }
+    function isMobile() {
+        return window.innerWidth < 768;
+    }
+
     resize();
     window.addEventListener("resize", resize);
 
@@ -46,9 +50,14 @@ window.addEventListener("load", () => {
             particles.push({
                 x: Math.random() * canvas.width,
                 y: canvas.height + Math.random() * 200,
-                s: Math.random() * 1.5 + 0.5,
+                s: isMobile()
+                    ? Math.random() * 0.8 + 0.3
+                    : Math.random() * 1.5 + 0.5,
                 icon: icons[Math.floor(Math.random() * icons.length)],
-                size: Math.random() * 24 + 18
+                size: isMobile()
+                    ? Math.random() * 12 + 10   // mobile: 10–22px
+                    : Math.random() * 24 + 18   // desktop: 18–42px
+
             });
         }
     }

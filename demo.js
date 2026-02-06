@@ -18,20 +18,35 @@ var audioInitialized = false;
 
 function showMicWarning() {
     const warning = document.getElementById('mic-warning');
-    if (!warning) return;
+    const wish = document.getElementById('wish-message');
 
+    if (!warning || !wish) return;
+
+    // reset trạng thái
     warning.classList.remove('hidden');
+    wish.classList.add('hidden');
 
-    // reset animation nếu gọi lại
+    // reset animation
     warning.style.animation = 'none';
-    warning.offsetHeight; // force reflow
+    warning.offsetHeight;
     warning.style.animation = '';
 
-    // tự ẩn sau 4s
+    // Sau 4s: ẩn cảnh báo → hiện lời ước
     setTimeout(() => {
         warning.classList.add('hidden');
-    }, 4000);
+
+        wish.classList.remove('hidden');
+        wish.style.animation = 'none';
+        wish.offsetHeight;
+        wish.style.animation = '';
+    }, 5000);
+
+    // Sau thêm 4s: ẩn lời ước
+    setTimeout(() => {
+        wish.classList.add('hidden');
+    }, 10000);
 }
+
 
 
 /* =========================
