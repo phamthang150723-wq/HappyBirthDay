@@ -323,14 +323,48 @@ th {
         box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5), 0 0 80px rgba(255, 165, 0, 0.5);
     }
 }
+.cake-message {
+    margin-top: 14px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+
+    transition: 
+        opacity 0.6s ease,
+        transform 0.6s ease,
+        visibility 0.6s;
+}
+
+/* chỉ hiện khi nến tắt */
+.cake-message.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.cake-off {
+    font-size: 25px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: 0.8s ease;
+}
+.cake-off.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 
 #cake-holder .cake-off {
-    opacity: 0;
+
     transition: 1s ease-in all;
 }
 
 #cake-holder.done .cake-off {
-    opacity: 1;
+
     transition: 1s ease-in all;
 }
 
@@ -461,7 +495,7 @@ th {
     text-align: center;
     z-index: 9999;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-    animation: micFadeOut 4s forwards;
+    animation: micFadeOut 1.5s forwards;
 }
 
 .mic-warning.hidden {
@@ -471,9 +505,9 @@ th {
 @keyframes micFadeOut {
     0% {
         opacity: 0;
-        transform: translateX(-50%) translateY(-10px);
+        transform: translateX(-50%) translateY(-6px);
     }
-    10% {
+    15% {
         opacity: 1;
         transform: translateX(-50%) translateY(0);
     }
@@ -482,7 +516,7 @@ th {
     }
     100% {
         opacity: 0;
-        transform: translateX(-50%) translateY(-10px);
+        transform: translateX(-50%) translateY(-6px);
     }
 }
 
@@ -503,7 +537,7 @@ th {
     text-align: center;
     z-index: 9998;
     box-shadow: 0 12px 30px rgba(255, 105, 180, 0.45);
-    animation: wishFadeIn 4s forwards;
+    animation: wishFadeIn 2.5s forwards;
 }
 
 .wish-message.hidden {
@@ -513,13 +547,13 @@ th {
 @keyframes wishFadeIn {
     0% {
         opacity: 0;
-        transform: translateX(-50%) scale(0.9);
+        transform: translateX(-50%) scale(0.92);
     }
-    15% {
+    20% {
         opacity: 1;
         transform: translateX(-50%) scale(1);
     }
-    80% {
+    85% {
         opacity: 1;
     }
     100% {

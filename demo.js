@@ -22,16 +22,16 @@ function showMicWarning() {
 
     if (!warning || !wish) return;
 
-    // reset trạng thái
+    // reset
     warning.classList.remove('hidden');
     wish.classList.add('hidden');
 
-    // reset animation
+    // restart animation
     warning.style.animation = 'none';
     warning.offsetHeight;
     warning.style.animation = '';
 
-    // Sau 4s: ẩn cảnh báo → hiện lời ước
+    // ⏱️ 1.5s → hiện lời ước
     setTimeout(() => {
         warning.classList.add('hidden');
 
@@ -39,13 +39,14 @@ function showMicWarning() {
         wish.style.animation = 'none';
         wish.offsetHeight;
         wish.style.animation = '';
-    }, 5000);
+    }, 1500);
 
-    // Sau thêm 4s: ẩn lời ước
+    // ⏱️ 4s → ẩn lời ước
     setTimeout(() => {
         wish.classList.add('hidden');
-    }, 10000);
+    }, 5000);
 }
+
 
 function showConfirmDialog(onConfirm) {
     const overlay = document.createElement("div");
@@ -56,7 +57,7 @@ function showConfirmDialog(onConfirm) {
             <h2>🎂 Sẵn sàng chưa?</h2>
             <p>Hãy chuẩn bị ước một điều thật đẹp<br>
                rồi bấm xác nhận để thổi nến nhé ❤️</p>
-            <button class="confirm-btn">Mình sẵn sàng rồi!</button>
+            <button class="confirm-btn">Sẵn sàng!</button>
         </div>
     `;
 
@@ -97,6 +98,7 @@ window.onload = function () {
         showConfirmDialog(async () => {
 
             audioInitialized = true;
+            showMicWarning();
 
             try {
                 audioContext = new AudioContext();
@@ -235,13 +237,13 @@ function enableClickToBlow() {
 ========================= */
 function turnOffCandle(source = 'unknown') {
     const flame = document.querySelector('.flame');
-    if (!flame) return;
-    if (flame.classList.contains('off')) return;
+    if (!flame || flame.classList.contains('off')) return;
 
     flame.classList.add('off');
     flame.style.opacity = 0;
 
-    console.log('🔥 Candle extinguished by:', source);
+    // ✅ HIỆN CHÚC MỪNG
+    document.querySelector('.cake-off')?.classList.add('show');
 
     if (window.switchToCelebrateEffect) {
         window.switchToCelebrateEffect();
@@ -255,7 +257,12 @@ function relightCandle() {
     flame.classList.remove('off');
     flame.style.opacity = 1;
 
-    console.log('🔥 Candle relit');
+    // ẨN TOÀN BỘ THÔNG ĐIỆP
+    document.getElementById('mic-warning')?.classList.add('hidden');
+    document.getElementById('wish-message')?.classList.add('hidden');
+
+    // ❌ ẨN HAPPY BIRTHDAY
+    document.querySelector('.cake-off')?.classList.remove('show');
 
     if (window.switchToSnowEffect) {
         window.switchToSnowEffect();
