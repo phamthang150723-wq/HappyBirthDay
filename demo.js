@@ -39,12 +39,12 @@ function showMicWarning() {
         wish.style.animation = 'none';
         wish.offsetHeight;
         wish.style.animation = '';
-    }, 1500);
+    }, 2300);
 
     // ⏱️ 4s → ẩn lời ước
     setTimeout(() => {
         wish.classList.add('hidden');
-    }, 5000);
+    }, 10000);
 }
 
 
@@ -98,7 +98,7 @@ window.onload = function () {
         showConfirmDialog(async () => {
 
             audioInitialized = true;
-            showMicWarning();
+            
 
             try {
                 audioContext = new AudioContext();
@@ -113,6 +113,7 @@ window.onload = function () {
                         autoGainControl: false
                     }
                 });
+                showMicWarning();
 
                 audioStream(stream);
 
@@ -121,6 +122,7 @@ window.onload = function () {
 
             } catch (err) {
                 console.error(err);
+                showMicWarning();
 
                 alert('Không truy cập được microphone. Bạn có thể click vào nến để tắt.');
 

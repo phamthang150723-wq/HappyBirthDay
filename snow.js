@@ -44,23 +44,27 @@ window.addEventListener("load", () => {
 
     function createCelebrate() {
         particles = [];
-        const icons = ["🎉", "🎂", "❤️", "✨", "🎈"];
+        const icons = ["✨"];
 
-        for (let i = 0; i < 50; i++) {
+        const COUNT = isMobile() ? 60 : 120;
+
+        for (let i = 0; i < COUNT; i++) {
             particles.push({
                 x: Math.random() * canvas.width,
-                y: canvas.height + Math.random() * 200,
-                s: isMobile()
-                    ? Math.random() * 0.8 + 0.3
-                    : Math.random() * 1.5 + 0.5,
-                icon: icons[Math.floor(Math.random() * icons.length)],
-                size: isMobile()
-                    ? Math.random() * 12 + 10   // mobile: 10–22px
-                    : Math.random() * 24 + 18   // desktop: 18–42px
+                y: Math.random() * canvas.height,
 
+                icon: icons[Math.floor(Math.random() * icons.length)],
+
+                size: isMobile()
+                    ? Math.random() * 14 + 14
+                    : Math.random() * 26 + 20,
+
+                life: Math.random() * 60 + 60,   // tổng frame tồn tại
+                age: 0                           // tuổi hiện tại
             });
         }
     }
+
 
     createSnow();
 
@@ -89,17 +93,36 @@ window.addEventListener("load", () => {
         ctx.textBaseline = "middle";
 
         for (const p of particles) {
+            p.age++;
+
+            // ===== opacity theo vòng đời =====
+            let opacity = 1;
+
+            if (p.age < 20) {
+                // fade in
+                opacity = p.age / 20;
+            } else if (p.age > p.life - 20) {
+                // fade out
+                opacity = (p.life - p.age) / 20;
+            }
+
+            ctx.globalAlpha = Math.max(0, opacity);
+
             ctx.font = `${p.size}px serif`;
             ctx.fillText(p.icon, p.x, p.y);
 
-            p.y -= p.s;
-
-            if (p.y < -50) {
-                p.y = canvas.height + 50;
+            // ===== reset khi hết vòng đời =====
+            if (p.age >= p.life) {
                 p.x = Math.random() * canvas.width;
+                p.y = Math.random() * canvas.height;
+                p.age = 0;
+                p.life = Math.random() * 60 + 60;
             }
         }
+
+        ctx.globalAlpha = 1;
     }
+
 
     function animate() {
         if (EFFECT === "snow") drawSnow();
