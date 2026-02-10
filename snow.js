@@ -1,5 +1,11 @@
+/* =====================================================
+   BLINK CELEBRATE EFFECT (NO MOVEMENT)
+   Optimized for Desktop & Mobile
+===================================================== */
+
 window.addEventListener("load", () => {
 
+    /* ========== CANVAS ========== */
     const canvas = document.createElement("canvas");
     canvas.id = "effect-canvas";
 
@@ -18,20 +24,22 @@ window.addEventListener("load", () => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
     }
-    function isMobile() {
-        return window.innerWidth < 768;
-    }
+
 
     resize();
     window.addEventListener("resize", resize);
 
-    /* ================== EFFECT STATE ================== */
-    let EFFECT = "snow"; // snow | celebrate
-    let COUNT = 180;
+    const isMobile = () => window.innerWidth < 768;
+
+    /* ========== STATE ========== */
+    let EFFECT = "snow";
     let particles = [];
 
+    /* ========== SNOW (GIỮ NGUYÊN) ========== */
     function createSnow() {
-        particles = [];
+        particles.length = 0;
+        const COUNT = isMobile() ? 120 : 180;
+
         for (let i = 0; i < COUNT; i++) {
             particles.push({
                 x: Math.random() * canvas.width,
@@ -42,42 +50,19 @@ window.addEventListener("load", () => {
         }
     }
 
-    function createCelebrate() {
-        particles = [];
-        const icons = ["✨"];
 
-        const COUNT = isMobile() ? 60 : 120;
-
-        for (let i = 0; i < COUNT; i++) {
-            particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-
-                icon: icons[Math.floor(Math.random() * icons.length)],
-
-                size: isMobile()
-                    ? Math.random() * 14 + 14
-                    : Math.random() * 26 + 20,
-
-                life: Math.random() * 60 + 60,   // tổng frame tồn tại
-                age: 0                           // tuổi hiện tại
-            });
-        }
-    }
-
-
-    createSnow();
 
     function drawSnow() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
         ctx.fillStyle = "rgba(255,255,255,0.9)";
         ctx.beginPath();
 
         for (const p of particles) {
             ctx.moveTo(p.x, p.y);
             ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+
             p.y += p.s;
-            p.x += Math.sin(p.y * 0.01) * 0.5;
+            p.x += Math.sin(p.y * 0.01) * 0.4;
 
             if (p.y > canvas.height) {
                 p.y = -10;
@@ -87,61 +72,106 @@ window.addEventListener("load", () => {
         ctx.fill();
     }
 
+    /* ========== CELEBRATE BLINK ========== */
+    function createCelebrate() {
+        particles.length = 0;
+        const COUNT = isMobile() ? 50 : 90;
+
+        for (let i = 0; i < COUNT; i++) {
+            const size = isMobile()
+                ? Math.random() * 14 + 14
+                : Math.random() * 24 + 20;
+
+            const life = Math.random() * 50 + 50;
+
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                icon: "✨",
+                size,
+                font: `${size}px serif`, // ✅ CACHE FONT
+                age: Math.random() * life,
+                life,
+                delay: Math.random() * 60 // ⏱️ delay trước khi blink
+            });
+        }
+    }
+
     function drawCelebrate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
 
         for (const p of particles) {
-            p.age++;
 
-            // ===== opacity theo vòng đời =====
-            let opacity = 1;
-
-            if (p.age < 20) {
-                // fade in
-                opacity = p.age / 20;
-            } else if (p.age > p.life - 20) {
-                // fade out
-                opacity = (p.life - p.age) / 20;
+            // delay để không blink đồng loạt
+            if (p.delay > 0) {
+                p.delay--;
+                continue;
             }
 
-            ctx.globalAlpha = Math.max(0, opacity);
+            p.age++;
 
-            ctx.font = `${p.size}px serif`;
-            ctx.fillText(p.icon, p.x, p.y);
 
-            // ===== reset khi hết vòng đời =====
+            let opacity = 1;
+
+            if (p.age < 15) {
+                opacity = p.age / 15;              // fade in
+            } else if (p.age > p.life - 15) {
+                opacity = (p.life - p.age) / 15;  // fade out
+            }
+
+            if (opacity > 0) {
+                ctx.globalAlpha = opacity;
+                ctx.font = p.font;
+                ctx.fillText(p.icon, p.x, p.y);
+            }
+
+            // 🔁 reset SAU KHI KẾT THÚC – không reset giữa blink
             if (p.age >= p.life) {
                 p.x = Math.random() * canvas.width;
                 p.y = Math.random() * canvas.height;
+                p.life = Math.random() * 50 + 50;
                 p.age = 0;
-                p.life = Math.random() * 60 + 60;
+                p.delay = Math.random() * 60;
             }
         }
 
         ctx.globalAlpha = 1;
     }
 
+    /* ========== INIT ========== */
+    createSnow();
 
-    function animate() {
-        if (EFFECT === "snow") drawSnow();
-        else drawCelebrate();
+    /* ========== LOOP (THROTTLED) ========== */
+    let lastTime = 0;
+
+    function animate(time) {
+        if (time - lastTime < 16) {
+            requestAnimationFrame(animate);
+            return;
+        }
+        lastTime = time;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        EFFECT === "snow" ? drawSnow() : drawCelebrate();
 
         requestAnimationFrame(animate);
     }
 
-    animate();
+    animate(0);
 
-    /* ================== PUBLIC API ================== */
+    /* ========== API ========== */
     window.switchToCelebrateEffect = function () {
         EFFECT = "celebrate";
         createCelebrate();
     };
+
     window.switchToSnowEffect = function () {
         EFFECT = "snow";
         createSnow();
     };
 
-
+    
 });
