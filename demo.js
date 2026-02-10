@@ -105,12 +105,12 @@ window.onload = function () {
                 if (audioContext.state === 'suspended') {
                     await audioContext.resume();
                 }
-
+                const isDesktop = !/Android|iPhone|iPad/i.test(navigator.userAgent);
                 const stream = await navigator.mediaDevices.getUserMedia({
                     audio: {
                         echoCancellation: false,
                         noiseSuppression: false,
-                        autoGainControl: false
+                        autoGainControl: isDesktop
                     }
                 });
                 showMicWarning();
