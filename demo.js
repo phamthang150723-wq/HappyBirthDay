@@ -31,7 +31,7 @@ function showMicWarning() {
     warning.offsetHeight;
     warning.style.animation = '';
 
-    // ⏱️ 1.5s → hiện lời ước
+    
     setTimeout(() => {
         warning.classList.add('hidden');
 
@@ -39,12 +39,12 @@ function showMicWarning() {
         wish.style.animation = 'none';
         wish.offsetHeight;
         wish.style.animation = '';
-    }, 2300);
+    }, 3250);
 
-    // ⏱️ 4s → ẩn lời ước
+    
     setTimeout(() => {
         wish.classList.add('hidden');
-    }, 10000);
+    }, 8000);
 }
 
 
@@ -54,9 +54,9 @@ function showConfirmDialog(onConfirm) {
 
     overlay.innerHTML = `
         <div class="confirm-box">
-            <h2>🎂 Sẵn sàng chưa?</h2>
-            <p>Hãy chuẩn bị ước một điều thật đẹp<br>
-               rồi bấm xác nhận để thổi nến nhé ❤️</p>
+            <h2>🎂 Trước khi thổi nến!!</h2>
+            <p>Đọc kĩ hướng dẫn và chuẩn bị ước một điều thật đẹp<br>
+               rồi bấm xác nhận để thổi nến nhaaaa ❤️</p>
             <button class="confirm-btn">Sẵn sàng!</button>
         </div>
     `;
@@ -69,6 +69,25 @@ function showConfirmDialog(onConfirm) {
     });
 }
 
+function showBirthdayDialog() {
+    const dialog = document.getElementById('birthday-dialog');
+    if (!dialog) return;
+
+    dialog.classList.remove('hidden');
+}
+
+function hideBirthdayDialog() {
+    const dialog = document.getElementById('birthday-dialog');
+    if (!dialog) return;
+
+    dialog.classList.add('hidden');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    document
+        .getElementById('close-birthday-dialog')
+        ?.addEventListener('click', hideBirthdayDialog);
+});
 
 /* =========================
    INIT
@@ -244,13 +263,19 @@ function turnOffCandle(source = 'unknown') {
     flame.classList.add('off');
     flame.style.opacity = 0;
 
-    // ✅ HIỆN CHÚC MỪNG
+    // ✅ HIỆN CHÚC MỪNG TRÊN BÁNH
     document.querySelector('.cake-off')?.classList.add('show');
+
+    // 🎉 HIỆN DIALOG LỜI CHÚC
+    setTimeout(() => {
+        showBirthdayDialog();
+    }, 600); // delay nhẹ cho cảm giác "thổi xong mới hiện"
 
     if (window.switchToCelebrateEffect) {
         window.switchToCelebrateEffect();
     }
 }
+
 
 function relightCandle() {
     const flame = document.querySelector('.flame');

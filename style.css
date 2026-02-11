@@ -484,7 +484,7 @@ th {
 ========================= */
 .mic-warning {
     position: fixed;
-    top: 20px;
+    top: 50%;
     left: 50%;
     transform: translateX(-50%);
     background: rgba(0, 0, 0, 0.85);
@@ -525,7 +525,7 @@ th {
 ========================= */
 .wish-message {
     position: fixed;
-    top: 70px; /* thấp hơn dialog cảnh báo */
+    top: 50%;
     left: 50%;
     transform: translateX(-50%);
     background: linear-gradient(135deg, #ff5fa2, #ff9acb);
@@ -607,6 +607,70 @@ th {
 
 .confirm-btn:active {
     transform: scale(0.96);
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0.85);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+.birthday-dialog {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999999;
+}
+.birthday-card h2 {
+    white-space: nowrap;
+    text-align: center;
+    font-size: clamp(14px, 3.8vw, 24px); /* ⬅️ GIẢM min */
+    line-height: 1.3;
+    margin: 0 auto 12px;
+    padding: 0 6px; /* đệm nhẹ để emoji không sát mép */
+}
+
+
+
+canvas,
+.snow,
+.snow-canvas {
+    pointer-events: none !important;
+}
+
+
+.birthday-dialog.hidden {
+    display: none;
+}
+
+.birthday-card {
+    background: #111;
+    color: white;
+    padding: 24px 28px;
+    border-radius: 16px;
+    text-align: center;
+    max-width: 480px;
+    animation: popIn 0.35s ease;
+}
+
+.birthday-card h2 {
+    margin-bottom: 12px;
+}
+
+.birthday-card button {
+    margin-top: 16px;
+    padding: 8px 16px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
 }
 
 @keyframes popIn {
