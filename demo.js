@@ -26,26 +26,39 @@ function showMicWarning() {
     warning.classList.remove('hidden');
     wish.classList.add('hidden');
 
-    // restart animation
-    warning.style.animation = 'none';
-    warning.offsetHeight;
-    warning.style.animation = '';
+    warning.classList.remove('show');
+    wish.classList.remove('show');
 
-    
+    // force reflow
+    void warning.offsetWidth;
+
+    // 🔔 HIỆN MIC WARNING
+    warning.classList.add('show');
+
+    // ⏱ GIỮ 4 GIÂY ĐỂ ĐỌC
     setTimeout(() => {
-        warning.classList.add('hidden');
+        warning.classList.remove('show');
 
-        wish.classList.remove('hidden');
-        wish.style.animation = 'none';
-        wish.offsetHeight;
-        wish.style.animation = '';
-    }, 3250);
+        // đợi fade-out xong
+        setTimeout(() => {
+            warning.classList.add('hidden');
 
-    
-    setTimeout(() => {
-        wish.classList.add('hidden');
-    }, 8000);
+            // ❤️ HIỆN WISH MESSAGE NGAY
+            wish.classList.remove('hidden');
+            void wish.offsetWidth;
+            wish.classList.add('show');
+
+            // tự ẩn wish sau 5s (tuỳ bạn)
+            setTimeout(() => {
+                wish.classList.remove('show');
+                setTimeout(() => wish.classList.add('hidden'), 600);
+            }, 5000);
+
+        }, 600);
+
+    }, 4000);
 }
+
 
 
 function showConfirmDialog(onConfirm) {
